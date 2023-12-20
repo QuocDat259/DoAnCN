@@ -16,6 +16,29 @@
     </button>
 </p>
 
+@using (Html.BeginForm("Index", "DoanThuBanThuoc", FormMethod.Get))
+{
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label for="selectedDate">Chọn Ngày:</label>
+            <input type="date" id="selectedDate" name="selectedDate" class="form-control" />
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="filterType">Lọc theo:</label>
+            <select id="filterType" name="filterType" class="form-control">
+                <option value="day">Ngày</option>
+                <option value="week">Tuần</option>
+                <option value="month">Tháng</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+            <button type="submit" class="btn btn-primary mt-4">Lọc</button>
+        </div>
+    </div>
+
+}
 <table class="table">
     <tr>
         <th>

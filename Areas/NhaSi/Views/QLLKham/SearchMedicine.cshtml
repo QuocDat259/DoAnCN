@@ -1,0 +1,18 @@
+﻿@model IEnumerable<NhaKhoa.Models.Thuoc>
+
+@{
+    ViewBag.Title = "SearchMedicine";
+    Layout = null; // Không sử dụng layout cho trang này
+}
+
+<h2>Search Medicine</h2>
+
+@foreach (var medicine in Model)
+{
+    <div>
+        <span>@medicine.Tenthuoc</span>
+        <span>@medicine.Mota</span>
+        <span>@medicine.Gia</span>
+        <a href="/QLLKham/SaveToTable?medicineId=@medicine.Id_thuoc">Chọn</a>
+    </div>
+}

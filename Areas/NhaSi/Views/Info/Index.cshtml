@@ -1,0 +1,90 @@
+﻿﻿@model NhaKhoa.Models.AspNetUsers
+
+@{
+    ViewBag.Title = "Thông tin nha sĩ";
+    Layout = "~/Areas/NhaSi/Views/Shared/Layout.cshtml";
+}
+
+<h2>Thông tin nha sĩ</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Email
+        </th>
+
+        <!-- Thêm các cột thông tin khác về nha sĩ -->
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.Email)
+        </td>
+        <!-- Hiển thị các thông tin khác về nha sĩ -->
+    </tr>
+    <tr>
+        <th>
+            Tên
+        </th>
+
+        <!-- Thêm các cột thông tin khác về nha sĩ -->
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.FullName)
+        </td>
+        <!-- Hiển thị các thông tin khác về nha sĩ -->
+    </tr>
+    <tr>
+        <th>
+            SDT
+        </th>
+
+        <!-- Thêm các cột thông tin khác về nha sĩ -->
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </td>
+        <!-- Hiển thị các thông tin khác về nha sĩ -->
+    </tr>
+    <tr>
+        <th>
+            Ngay Sinh
+        </th>
+
+        <!-- Thêm các cột thông tin khác về nha sĩ -->
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.Ngaysinh)
+        </td>
+        <!-- Hiển thị các thông tin khác về nha sĩ -->
+    </tr>
+    <tr>
+        <th>
+            Nghe Nghiep
+        </th>
+
+        <!-- Thêm các cột thông tin khác về nha sĩ -->
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.NgheNghiep)
+        </td>
+        <!-- Hiển thị các thông tin khác về nha sĩ -->
+    </tr>
+    <tr>
+        <th>
+            Bằng cấp
+        </th>
+
+        <!-- Thêm các cột thông tin khác về nha sĩ -->
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.Bangcap)
+        </td>
+        <!-- Hiển thị các thông tin khác về nha sĩ -->
+    </tr>
+</table>
+@Html.ActionLink("Chỉnh sửa thông tin", "Edit")

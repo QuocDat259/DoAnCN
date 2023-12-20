@@ -1,0 +1,58 @@
+﻿@model NhaKhoa.Models.AspNetUsers
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center">Chi tiết Nha sĩ</h2>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Email):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PhoneNumber):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.UserName):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.UserName)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.GioiTinh):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.GioiTinh)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.DiaChi):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.DiaChi)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Trangthai):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Trangthai)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Ngaysinh):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Ngaysinh)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.NgheNghiep):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.NgheNghiep)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.NgayTao):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.NgayTao)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Bangcap):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Bangcap)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CCCD):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.CCCD)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FullName):</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.FullName)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+        @Html.ActionLink("Quay lại danh sách", "Index", new { @class = "btn btn-secondary" })
+    </div>
+</div>

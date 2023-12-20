@@ -1,0 +1,203 @@
+﻿﻿@model NhaKhoa.Models.ThoiKhoaBieuViewModel
+
+@{
+    ViewBag.Title = "TKB";
+    Layout = "~/Areas/NhaSi/Views/Shared/Layout.cshtml";
+    var now = DateTime.Now;
+    int counter = 1;
+    int eday = 1;
+    var daysUntilMonday = ((int)now.DayOfWeek - (int)DayOfWeek.Monday + 7) % 7;
+    var monday = now.AddDays(-daysUntilMonday);
+    var sunday = monday.AddDays(6);
+    int numberweek = 0;
+}
+
+<header class="cd-main-header text-center flex flex-column flex-center">
+    <h1 class="text-xl">THỜI GIAN BIỂU</h1>
+    <button onclick="window.location.href='@Url.Action("ViewCalendar", "QLLich", "NhaSi")'" class="custom-button">Xem tất cả lịch</button>
+</header>
+
+<div style="text-align:center; margin:auto; padding:10px">
+    <button id="prevWeek">Tuần Trước</button>
+    <label for="weekSelect">Chọn Tuần:</label>
+    <select id="weekSelect">
+        @foreach (var week in Model.weeks)
+        {
+            numberweek++;
+            var startOfWeek = week;
+            var endOfWeek = week.AddDays(6);
+
+            if (startOfWeek.Year >= DateTime.Now.Year && startOfWeek.Year <= DateTime.Now.Year + 1)
+            {
+                <option value="@startOfWeek.ToString("yyyy-MM-dd")"
+                        @(startOfWeek.Date <= Model.SelectedWeek.Date && Model.SelectedWeek.Date <= endOfWeek.Date ? "selected" : "")>
+                    Tuần @numberweek: @startOfWeek.ToString("dd/MM/yyyy") - @endOfWeek.ToString("dd/MM/yyyy")
+                </option>
+            }
+        }
+
+        @if (Model.SelectedWeek.Year > DateTime.Now.Year + 1)
+        {
+            <option value="@Model.SelectedWeek.ToString("yyyy-MM-dd")" selected disabled hidden>
+                Chọn tuần: Không thể chọn năm sau
+            </option>
+        }
+    </select>
+    <button id="nextWeek">Tuần Tiếp</button>
+</div>
+
+
+<div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
+    @if (Model.DanhSachThu.Any())
+    {
+        <div class="cd-schedule__timeline">
+            <ul>
+                <li><span>09:00</span></li>
+                <li><span>09:30</span></li>
+                <li><span>10:00</span></li>
+                <li><span>10:30</span></li>
+                <li><span>11:00</span></li>
+                <li><span>11:30</span></li>
+                <li><span>12:00</span></li>
+                <li><span>12:30</span></li>
+                <li><span>13:00</span></li>
+                <li><span>13:30</span></li>
+                <li><span>14:00</span></li>
+                <li><span>14:30</span></li>
+                <li><span>15:00</span></li>
+                <li><span>15:30</span></li>
+                <li><span>16:00</span></li>
+                <li><span>16:30</span></li>
+                <li><span>17:00</span></li>
+                <li><span>17:30</span></li>
+                <li><span>18:00</span></li>
+            </ul>
+        </div> <!-- .cd-schedule__timeline -->
+        <!-- Your existing code ... -->
+        <div class="cd-schedule__events">
+            <ul id="loadlich">
+                @if (Model.DanhSachThu.Any())
+                {
+                    var selectedWeekStartDate = Model.SelectedWeek.Date;
+                    var selectedWeekEndDate = selectedWeekStartDate.AddDays(6);
+
+                    foreach (var day in Model.DanhSachThu)
+                    {
+                        <li class="cd-schedule__group">
+                            <div class="cd-schedule__top-info"><span>@day.TenThu</span></div>
+                            @{string ThuMau = day.TenThu;}
+                            <ul>
+                                @foreach (var eventItem in day.ThoiKhoaBieu
+                                    .Where(e => e.NgayLamViec.HasValue &&
+                                                e.NgayLamViec.Value.Date >= selectedWeekStartDate &&
+                                                e.NgayLamViec.Value.Date <= selectedWeekEndDate &&
+                                                e.Id_Nhasi == ViewBag.CurrentUserId)  // Filter by Id_Nhasi)
+                                    .OrderBy(e => e.NgayLamViec))
+                                {
+                                    var uniqueEventId = $"event-{counter}";
+                                    counter++;
+                                    var uniqueEventIdDay = $"event-{eday}";
+                                    eday++;
+                                    <li class="cd-schedule__event">
+
+                                        <a data-start="@eventItem.KhungGio.GioBatDau" data-end="@eventItem.KhungGio.GioKetThuc" data-event="@uniqueEventId" data-content="@uniqueEventIdDay">
+                                            <em class="cd-schedule__name">@eventItem.Phong.TenPhong-@eventItem.KhungGio.TenCa</em>
+                                            <em class="cd-schedule__name">@eventItem.AspNetUsers.FullName</em>
+                                            @if (eventItem.NgayLamViec.HasValue)
+                                            {
+                                                <em class="cd-schedule__name">@eventItem.NgayLamViec.Value.ToString("yyyy-MM-dd")</em>
+                                            }
+                                        </a>
+                                        <a class="cd-schedule-modal__edit" data-tkbid="@eventItem.Id_TKB"> thay đổi lịch khám</a>
+                                    </li>
+                                }
+                                @{
+                                    eday = 1;
+                                }
+                            </ul>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+    else
+    {
+        <p>Không có dữ liệu thời khóa biểu.</p>
+    }
+    <div class="cd-schedule-modal">
+        <header class="cd-schedule-modal__header">
+            <div class="cd-schedule-modal__content">
+                <span class="cd-schedule-modal__date"></span>
+                <h3 class="cd-schedule-modal__name"></h3>
+            </div>
+
+            <div class="cd-schedule-modal__header-bg"></div>
+        </header>
+        <div class="cd-schedule-modal__body">
+            <div class="cd-schedule-modal__event-info">
+                <h1>Lịch khám ngày </h1>
+                <!-- Display other appointment information as needed -->
+            </div>
+            <div class="cd-schedule-modal__body-bg"></div>
+        </div>
+        <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
+    </div>
+
+    <div class="cd-schedule__cover-layer"></div>
+</div>
+<!-- Your existing code ... -->
+<script src="~/Areas/NhaSi/assetTKB/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
+<script src="~/Areas/NhaSi/assetTKB/js/main.js"></script>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="~/Areas/NhaSi/assetTKB/js/util.js"></script>
+    <script src="~/Areas/NhaSi/assetTKB/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#weekSelect').change(function () {
+                var selectedWeek = $(this).val();
+                window.location.href = "@Url.Action("Index", "QLLich")" + "?page=1&selectedWeek=" + selectedWeek;
+            });
+
+
+    $('.cd-schedule-modal__edit').each(function () {
+    // Lấy ID của thời khoá biểu từ thuộc tính data-tkbid của phần tử
+    var tkbId = $(this).data('tkbid');
+
+    // Lấy ngày hẹn từ phần tử cha gần nhất có class là 'cd-schedule__event'
+    var appointmentDate = new Date($(this).closest('.cd-schedule__event').find('.cd-schedule__name:last').text());
+
+    // Tính số ngày chênh lệch giữa ngày hẹn và ngày hiện tại
+    var daysUntilAppointment = Math.floor((appointmentDate - new Date()) / (1000 * 60 * 60 * 24));
+
+    // Kiểm tra xem cuộc hẹn có trong vòng 7 ngày tiếp theo hay không
+    if (daysUntilAppointment < 7) {
+        $(this).hide(); // Ẩn liên kết nếu cuộc hẹn còn quá 7 ngày
+    }
+
+    // Xử lý sự kiện click cho liên kết
+    $(this).click(function () {
+        window.location.href = "@Url.Action("EditCalendar", "QLLich")" + "?id=" + tkbId;
+    });
+});
+
+            $('#prevWeek').click(function () {
+                var selectedWeek = new Date($('#weekSelect').val());
+                selectedWeek.setDate(selectedWeek.getDate() - 7);
+                updateWeek(selectedWeek.toISOString().slice(0, 10));
+            });
+
+            $('#nextWeek').click(function () {
+                var selectedWeek = new Date($('#weekSelect').val());
+                selectedWeek.setDate(selectedWeek.getDate() + 7);
+                updateWeek(selectedWeek.toISOString().slice(0, 10));
+            });
+
+            function updateWeek(newWeek) {
+                window.location.href = "@Url.Action("Index", "QLLich")" + "?page=1&selectedWeek=" + newWeek;
+            }
+        });
+    </script>
+}

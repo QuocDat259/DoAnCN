@@ -1,0 +1,93 @@
+﻿﻿@model IEnumerable<NhaKhoa.Models.PhieuDatLich>
+@{
+    ViewBag.Title = "BookingView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container">
+    <h2 class="text-center mt-5">Lịch Đã Đặt</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    @if (Model.Any(item => item.TrangThaiThanhToan == true)) // Kiểm tra nếu có ít nhất một phần tử có TrangThai=true
+                    {
+                        <th>Số thứ tự</th>
+                    }
+                    else
+                    {
+                        <th></th>
+}
+                    <th>Ngày Khám</th>
+                    <th>Tên Nha Sĩ</th>
+                    <th>Thanh toán</th>
+                    <th>Trạng thái</th>
+                    <th>Đơn Thuốc</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @if (item.TrangThaiThanhToan == true)
+                        {
+                            <td>@Html.DisplayFor(modelItem => item.STT)-@Html.DisplayFor(modelItem => item.ThoiKhoaBieu.KhungGio.TenCa)</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+
+                        <td>@Html.DisplayFor(modelItem => item.NgayKham)</td>
+
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.IdNhaSi))
+                            {
+                                string nhaSiName = ViewBag.NhaSiNames[item.IdNhaSi];
+                                <span>@nhaSiName- @Html.DisplayFor(modelItem => item.ThoiKhoaBieu.Phong.TenPhong)</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.TrangThaiThanhToan == true)
+                            {<span class="text-success"> Đã thanh toán</span>
+                            }
+                            else
+                            {
+                                <span class="text-warning">Chưa thanh toán</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.TrangThai == true)
+                            {
+                                <span class="text-success">Đã khám</span>
+                            <td>
+                                @Html.ActionLink("Xem Đơn Thuốc", "Bill", "Home", new { id_phieudat = item.Id_Phieudat }, new { @class = "btn btn-success btn-sm" })
+                            </td>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Chưa khám</span>
+                            <button class="btn btn-primary" onclick="changeBooking('@item.Id_Phieudat')">
+                                Đổi lịch đặt
+                            </button>
+
+                        }
+                            </td>
+                        </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function changeBooking(appointmentId) {
+        var confirmChange = confirm("Bạn có chắc muốn đổi lịch đặt không?");
+        if (confirmChange) {
+            // Redirect to the change appointment action
+            window.location.href = '@Url.Action("ChangeAppointment", "Home")?appointmentId=' + appointmentId;
+        }
+    }
+</script>

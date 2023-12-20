@@ -1,0 +1,37 @@
+﻿@model NhaKhoa.Models.AspNetUsers
+
+@{
+    ViewBag.Title = "Thông tin nhân viên";
+    Layout = "~/Areas/NhanVien/Views/Shared/Layout.cshtml";
+}
+
+<h2>Thông tin nhân viên</h2>
+
+<table class="table">
+    <tr>
+        <th>Email</th>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <th>Tên nhân viên</th>
+        <td>@Model.FullName</td>
+    </tr>
+    <tr>
+        <th>Số điện thoại</th>
+        <td>@Model.PhoneNumber</td>
+    </tr>
+    <tr>
+        <th>Ngày sinh</th>
+        <td>@Model.Ngaysinh</td>
+    </tr>
+    <tr>
+        <th>Nghe nghiệp</th>
+        <td>@Model.NgheNghiep</td>
+    </tr>
+    <tr>
+        <th>Bằng cấp</th>
+        <td>@Model.Bangcap</td>
+    </tr>
+</table>
+
+@Html.ActionLink("Chỉnh sửa thông tin", "Edit", new { id = Model.Id })

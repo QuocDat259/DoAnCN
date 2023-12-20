@@ -1,0 +1,276 @@
+﻿﻿@model List<NhaKhoa.Models.AspNetUsers>
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- ***** Header Area End ***** -->
+
+<div class="main-banner">
+    <div class="owl-carousel owl-banner">
+        <div class="item item-1">
+            <div class="header-text">
+                <span class="category"> <em>Đặt lịch</em></span>
+                <h2>chuyên nghiệp và tận tâm!<br></h2>
+            </div>
+        </div>
+        <div class="item item-2">
+            <div class="header-text">
+                <span class="category"><em>Đặt lịch</em></span>
+                <h2>Tiết kiệm!<br></h2>
+            </div>
+        </div>
+        <div class="item item-3">
+            <div class="header-text">
+                <span class="category"><em>Đặt lịch</em></span>
+                <h2>An Toàn!<br></h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section best-deal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="section-heading">
+                    <h6>| Đội ngũ</h6>
+                    <h4>Bác sĩ chuyên nghiệp và tận tâm của phòng khám!</h4>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="tabs-content">
+                    <div class="row">
+                        <div class="nav-wrapper ">
+                            <ul class="nav nav-tabs" role="tablist">
+                                @foreach (var nhaSi in Model)
+                                {
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link @if(nhaSi == Model.First()) { <text>show active</text> }" id="@($"nhaSi-tab-{nhaSi.Id}")" data-bs-toggle="tab" data-bs-target="#@($"nhaSi-{nhaSi.Id}")" type="button" role="tab" aria-controls="@($"nhaSi-{nhaSi.Id}")" aria-selected="false">@nhaSi.FullName</button>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="tab-content" id="myTabContent">
+                            @foreach (var nhaSi in Model)
+                            {
+                                <div class="tab-pane fade @if(nhaSi == Model.First()) { <text>show active</text> }" id="@($"nhaSi-{nhaSi.Id}")" role="tabpanel" aria-labelledby="@($"nhaSi-tab-{nhaSi.Id}")">
+                                    <!-- Your content for each Nha Sĩ goes here -->
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="info-table">
+                                                <ul>
+                                                    <li>Chuyên ngành<span>Nha khoa</span></li>
+                                                    <li>Số điện thoại<span>@nhaSi.PhoneNumber</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="info-table" style="margin-top:20px">
+                                                <ul>
+                                                    <li>Nhận xét nổi bật<span></span></li>
+                                                    <ul>
+                                                        @foreach (var review in nhaSi.DanhGiaNhaSi)
+                                                        {
+                                                            <li>@review.SaoDanhGia-@review.Noidung</li>
+                                                        }
+                                                    </ul>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <img src="~/img/Nhaisiimg/@nhaSi.HinhAnh" alt="">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h4>@nhaSi.Ngaysinh</h4>
+                                            <p>
+                                                - Tốt nghiệp Khoa Răng Hàm Mặt - Đại học Y Dược TP.HCM.
+                                                <br>- Chuyên gia chỉnh hình hàm mặt.
+                                                <br>- Tham gia đào tạo cho các bác sĩ chỉnh nha.
+                                                <br>- Trưởng ban chỉnh nha Nha Khoa Kim.
+                                                <br>- 17 năm kinh nghiệm trong lĩnh vực nha khoa.
+                                            </p>
+                                            <div class="icon-button">
+                                                <a href="@Url.Action("DetailsDoctor","Home", new { id = nhaSi.Id })"><i class="fa fa-baby"></i> Xem thêm</a>
+                                                <a href="~/Home/Appointment" style="margin-top:20px"><i class="fa fa-calendar"></i> Đặt lịch ngay</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="properties section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-4">
+                <div class="section-heading text-center">
+                    <h6>| Dịch vụ</h6>
+                    <h3>Các dịch vụ nổi bật mà chúng tôi mang đến</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="item">
+                    <a href="property-details.html"><img src="~/assets/images/Dich-vu/trong-rang.png" alt=""></a>
+                    <span class="category">Dịch vụ</span>
+                    <h4><a href="property-details.html">Trồng răng tháo lắp </a></h4>
+                    <ul>
+                        <li>là phương pháp phục hình răng tối ưu nhằm thay thế cho nhiều răng.</li>
+                    </ul>
+                    <div class="main-button">
+                        <a href="property-details.html">Tìm hiểu ngay</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="item">
+                    <a href="property-details.html"><img src="~/assets/images/Dich-vu/nieng-rang.png" alt=""></a>
+                    <span class="category">Dịch vụ</span>
+                    <h4><a href="property-details.html">Niềng răng</a></h4>
+                    <ul>
+                        <li>là phương pháp nha khoa giúp điều chỉnh các răng về đúng hướng và đúng vị trí.</li>
+                    </ul>
+                    <div class="main-button">
+                        <a href="property-details.html">Tìm hiểu ngay</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="item">
+                    <a href="property-details.html"><img src="~/assets/images/Dich-vu/tay-trang-rang.png" alt="" style="width: 100%; height: auto"></a>
+                    <span class="category">Dịch vụ</span>
+                    <h4><a href="property-details.html">Tẩy Trắng Răng</a></h4>
+                    <ul>
+                        <li>là phương pháp nha khoa nhằm lấy đi các sắc tố vàng, nâu… ở men răng và ngà răng.</li>
+                    </ul>
+                    <div class="main-button">
+                        <a href="property-details.html">Tìm hiểu ngay</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="item">
+                    <a href="property-details.html"><img src="~/assets/images/Dich-vu/nho-rang.png" alt=""></a>
+                    <span class="category">Dịch vụ</span>
+                    <h4><a href="property-details.html">Nhổ Răng Hư Tổn</a></h4>
+                    <ul>
+                        <li>giải pháp điều trị nha khoa cuối cùng khi răng không còn có thể bảo tồn được nữa.</li>
+                    </ul>
+                    <div class="main-button">
+                        <a href="property-details.html">Tìm hiểu ngay</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="item">
+                    <a href="property-details.html"><img src="~/assets/images/Dich-vu/cham-soc-rang-mieng.jpg" alt=""></a>
+                    <span class="category">Dịch vụ</span>
+                    <h4><a href="property-details.html">Chăm Sóc Răng Miệng</a></h4>
+                    <ul>
+                        <li>Giúp ngăn chặn trước các nguy cơ xuất hiện các bệnh về răng.</li>
+                    </ul>
+                    <div class="main-button">
+                        <a href="property-details.html">Tìm hiểu ngay</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="item">
+                    <a href="property-details.html"><img src="~/assets/images/Dich-vu/boc-rang-su.png" alt=""></a>
+                    <span class="category">Dịch vụ</span>
+                    <h4><a href="property-details.html">Bọc răng sứ</a></h4>
+                    <ul>
+                        <li>là phương pháp phục hình răng giúp khắc phục những khuyết điểm của răng.</li>
+                    </ul>
+                    <div class="main-button">
+                        <a href="property-details.html">Tìm hiểu ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="contact section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-4">
+                <div class="section-heading text-center">
+                    <h6>| Phản hồi với chúng tôi</h6>
+                    <h2>Gửi ý kiến của bạn vào đây</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="contact-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div id="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.4324488546304!2d106.81124217481914!3d10.854676157745967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175274c6952e3b5%3A0x565218238bb43750!2zNjQgSG_DoG5nIEjhu691IE5hbSwgS2h1IHBo4buRIE3hu7kgVGjDoG5oLCBRdeG6rW4gOSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1698309891984!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="item phone">
+                            <img src="../assets/images/phone-icon.png" alt="" style="max-width: 52px;">
+                            <h6>039-442-1596<br><span>Phone Number</span></h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="item email">
+                            <img src="../assets/images/email-icon.png" alt="" style="max-width: 52px;">
+                            <h6>TĐM@gmail.com<br><span>Email</span></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <form id="contact-form" action="" method="post">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <label for="name">Họ Tên</label>
+                                <input type="text" name="name" id="name" placeholder="Tên đầy đủ..." autocomplete="on" required>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <label for="email">Email</label>
+                                <input type="text" name="email" id="email" placeholder="E-mail của bạn..." required="">
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <label for="subject">Tiêu Đề</label>
+                                <input type="text" name="subject" id="subject" placeholder="Tiêu đề..." autocomplete="on">
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <label for="message">Nội dung</label>
+                                <textarea name="message" id="message" placeholder="Nội dung.."></textarea>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="orange-button">Gửi</button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

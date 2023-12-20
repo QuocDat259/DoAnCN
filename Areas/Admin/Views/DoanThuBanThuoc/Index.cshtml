@@ -10,6 +10,12 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    <button>
+        @Html.ActionLink("Export Excel", "ExportToExcel", null, new { @class = "btn btn-success" })
+    </button>
+</p>
+
 <table class="table">
     <tr>
         <th>
@@ -30,29 +36,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhieuDatLich.IdNhaSi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TongTien)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Soluong)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id_donthuoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Chandoan)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id_donthuoc }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id_donthuoc }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id_donthuoc })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhieuDatLich.IdNhaSi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TongTien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id_donthuoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chandoan)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id_donthuoc }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id_donthuoc }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id_donthuoc })
+            </td>
+        </tr>
+    }
 
 </table>

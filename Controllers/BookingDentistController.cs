@@ -209,7 +209,7 @@ namespace NhaKhoa.Controllers
         {
             // Retrieve appointment information based on the provided order ID
             var appointment = db.PhieuDatLich.Find(order);
-            appointment.Gia = 15000000;
+            appointment.Gia = 150000;
             if (appointment == null)
             {
                 // Handle the case where the appointment is not found

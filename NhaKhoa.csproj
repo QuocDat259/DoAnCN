@@ -562,6 +562,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\tintuc\Screenshot 2023-10-22 202754_d398232b.png" />
+    <Content Include="images\tintuc\Screenshot 2023-11-23 140509_71e8af17.png" />
+    <Content Include="images\tintuc\Screenshot 2023-11-23 140509_7aae17e7.png" />
+    <Content Include="images\tintuc\Screenshot 2023-11-23 140615_a20f4bee.png" />
+    <Content Include="images\tintuc\Screenshot 2023-11-23 140804_b08ccd5b.png" />
     <Content Include="img\Nhaisiimg\Boc-rang-su.jpg" />
     <Content Include="img\Nhaisiimg\phong-kham-nha-khoa-quan-9-hinh-anh-6-6053.jpg" />
     <Content Include="img\Nhaisiimg\trung.jpg" />

@@ -30,7 +30,7 @@
                 <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv">
                     <div class="item">
                         <a href="@Url.Action("BlogDetail", new { id = item.Id_tintuc })"><img src="~/images/tintuc/@item.Hinhanh" alt=""></a>
-                        <span class="category">Tin Tức</span>
+                        <span class="category">Tin Tức</span> 
                         <h4>
                             <a href="@Url.Action("BlogDetail", new { id = item.Id_tintuc })">
                                 @Html.Raw(item.Tieude.Length > 20 ? item.Tieude.Substring(0, 20) + "..." : item.Tieude)

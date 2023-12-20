@@ -206,12 +206,12 @@ namespace NhaKhoa.Areas.NhaSi.Controllers
                 // Redirect to a relevant page, e.g., the details page for the created prescription
                 return RedirectToAction("Index");
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
                 // Handle database update exceptions (e.g., unique constraint violation) more specifically
                 ModelState.AddModelError(string.Empty, "An error occurred while saving the prescription.");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Handle other exceptions appropriately, log the error, etc.
                 ModelState.AddModelError(string.Empty, "An unexpected error occurred while saving the prescription.");

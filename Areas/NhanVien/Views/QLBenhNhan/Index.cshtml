@@ -1,4 +1,5 @@
-﻿﻿@model IEnumerable<NhaKhoa.Models.AspNetUsers>
+﻿﻿@model PagedList.IPagedList<NhaKhoa.Models.AspNetUsers>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -7,37 +8,31 @@
 
 <h2>Index</h2>
 
-<button>
-    @Html.ActionLink("Tạo tài khoản", "Create")
-</button>
+<p>
+    @Html.ActionLink("Tạo tài khoản mới", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+           Id
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            @Html.DisplayNameFor(model => model.First().Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GioiTinh)
+            @Html.DisplayNameFor(model => model.First().DiaChi)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DiaChi)
+            @Html.DisplayNameFor(model => model.First().Ngaysinh)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Trangthai)
+            @Html.DisplayNameFor(model => model.First().NgheNghiep)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ngaysinh)
+            @Html.DisplayNameFor(model => model.First().CCCD)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NgheNghiep)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CCCD)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FullName)
+            @Html.DisplayNameFor(model => model.First().FullName)
         </th>
         <th></th>
     </tr>
@@ -46,20 +41,13 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Email)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GioiTinh)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DiaChi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Trangthai)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ngaysinh)
@@ -75,10 +63,34 @@
             </td>
             <td>
                 @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Chi Tiết", "Details", new { id = item.Id })
+                @Html.ActionLink("Chi Tiết", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Đặt lịch", "Booking", new { id = item.Id })
             </td>
         </tr>
     }
-
 </table>
+
+<div class="d-flex justify-content-center mt-4">
+    <ul class="pagination">
+        <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+            @if (Model.HasPreviousPage)
+            {
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1 })">&laquo; </a>
+            }
+        </li>
+
+        @for (int i = 1; i <= Model.PageCount; i++)
+        {
+            <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+            </li>
+        }
+
+        <li class="page-item @(Model.PageNumber == Model.PageCount ? "disabled" : "")">
+            @if (Model.HasNextPage)
+            {
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1 })"> &raquo;</a>
+            }
+        </li>
+    </ul>
+</div>
